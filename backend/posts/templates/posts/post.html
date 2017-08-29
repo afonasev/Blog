@@ -1,0 +1,5 @@
+<article>
+    <a href="{{ post.get_absolute_url }}"><h1>{{ post.title }}</h1></a>
+    <time class="date">{{ post.created_at | date }}</time>
+    {{ post.html | safe }}
+</article>

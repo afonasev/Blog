@@ -1,0 +1,53 @@
+body {
+    background-color: #f9f9f9;
+    color: #303030;
+    font-size: 14px;
+    font: 17px/25px 'Merriweather', serif;
+    margin: auto;
+    width: 600px;
+    -webkit-font-smoothing: antialiased;
+}
+body a {
+    color: #269;
+    text-decoration: none;
+}
+body a:hover {
+    color: #4a9bd7;
+}
+
+header, footer {
+    text-align: center;
+    margin: 20px;
+}
+
+section {
+    margin-top: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+article {
+    border-top: 2px solid #eee;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+article h1 {
+    text-align: center;
+}
+article time {
+    color: #999;
+    font-size: 12px;
+}
+article code {
+    color: #eee;
+    font-family: Ubuntu Mono;
+    font-size: 13px;
+    background-color: #29281e;
+}
+
+article pre code {
+    border-radius: 2px;
+    display: block;
+    padding: 0px 60px;
+}
