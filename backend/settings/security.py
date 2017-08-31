@@ -8,7 +8,10 @@ if DEBUG:
 else:
     SECRET_KEY = os.environ[PROJECT + '_SECRET_KEY']
 
-ALLOWED_HOSTS = ['127.0.0.1']
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['.afonasev.ru']
 
 VALIDATORS_PATH = 'django.contrib.auth.password_validation.'
 
