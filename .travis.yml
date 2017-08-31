@@ -22,4 +22,4 @@ cache:
 
 script:
   - pip install -r requirements.txt
-  - sh ./test.sh
+  - ./test.sh

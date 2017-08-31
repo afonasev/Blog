@@ -1,5 +1,4 @@
 set -e
-
 isort -c
 flake8 backend
 pylint backend
