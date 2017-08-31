@@ -42,7 +42,6 @@ article time {
 article code {
     color: #eee;
     font-family: Ubuntu Mono;
-    font-size: 13px;
     background-color: #29281e;
 }
 
@@ -50,4 +49,12 @@ article pre code {
     border-radius: 2px;
     display: block;
     padding: 0px 60px;
+}
+
+.tag {
+    color: green;
+    margin: 0px 2px;
+    display: inline-block;
+    font-size: 16px;
+    text-decoration: underline;
 }
