@@ -1,9 +1,13 @@
 astroid==1.5.3
+certifi==2017.7.27.1
+chardet==3.0.4
 coverage==4.4.1
+coveralls==1.2.0
 Django==1.11.4
 django-debug-toolbar==1.8
 django-split-settings==0.2.5
 dnspython==1.15.0
+docopt==0.6.2
 email-validator==1.0.2
 Faker==0.8.0
 flake8==3.4.1
@@ -22,7 +26,9 @@ pytest-cov==2.5.1
 pytest-django==3.1.2
 python-dateutil==2.6.1
 pytz==2017.2
+requests==2.18.4
 six==1.10.0
 sqlparse==0.2.3
 UkPostcodeParser==1.1.1
+urllib3==1.22
 wrapt==1.10.11
