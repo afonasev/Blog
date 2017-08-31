@@ -21,5 +21,4 @@ cache:
   - pip
 
 script:
-  - pip install -r requirements.txt
-  - ./test.sh
+  - ./scripts/travis.sh

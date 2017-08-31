@@ -3,33 +3,37 @@
 [![Build Status](https://travis-ci.org/Afonasev/Blog.svg?branch=master)](https://travis-ci.org/Afonasev/Blog)
 [![Coverage Status](https://coveralls.io/repos/github/Afonasev/Blog/badge.svg?branch=master)](https://coveralls.io/github/Afonasev/Blog?branch=master)
 
-### Installing deps
+### Run dev server
+
+##### Install deps
 
     pip install -r requirements.txt
 
-### Migrations applying
+##### Apply migrations
     python manage.py migrate
 
-### Running debug server
+##### Run debug server
 
     python manage.py runserver
 
-### Running the testsuite
+### Tests, linters, etc.
+
+##### Run all tests and linters
+
+    ./scripts/test.sh
+
+##### Run tests
 
     py.test --cov=./backend
 
-### Code linting
+##### Run linters
 
     flake8 backend
     pylint backend
 
-### Sort imports
+##### Sort imports
 
     isort -rc backend
-
-### Code Style
-
-* [PEP8](https://www.python.org/dev/peps/pep-0008/)
 
 ### Git pre-commit hook
 
@@ -39,3 +43,7 @@
     flake8 backend
     pylint backend
     py.test --cov=./backend
+
+### Code Style
+
+* [PEP8](https://www.python.org/dev/peps/pep-0008/)
