@@ -33,7 +33,7 @@ class Command(BaseCommand):
 
         tag_ids = []
         for name in tag_names:
-            tag = models.Tag(name=name)
+            tag = models.Tag(title=name)
             tag.save()
             tag_ids.append(tag.id)
 

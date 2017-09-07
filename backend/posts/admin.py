@@ -40,4 +40,4 @@ class Post(admin.ModelAdmin, AdminModelUrlMixin):
 class Tag(admin.ModelAdmin, AdminModelUrlMixin):
 
     inlines = (PostsInline, )
-    list_display = ('name', 'link')
+    list_display = ('title', 'link')

@@ -18,7 +18,7 @@ class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'posts.Tag'
 
-    name = factory.Faker('word')
+    title = factory.Faker('word')
 
 
 class PostFactory(factory.django.DjangoModelFactory):
