@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
-from django.urls import reverse
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 from backend.utils import markdown_to_html
 
