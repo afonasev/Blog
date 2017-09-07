@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from backend.utils import AdminModelUrlMixin
+
 from . import models
 
 
@@ -22,7 +24,7 @@ class PostsInline(admin.TabularInline):
 
 
 @admin.register(models.Post)
-class Post(admin.ModelAdmin):
+class Post(admin.ModelAdmin, AdminModelUrlMixin):
 
     date_hierarchy = 'created_at'
     exclude = ('tags', )
@@ -33,13 +35,9 @@ class Post(admin.ModelAdmin):
     list_editable = ('hidden', )
     list_filter = ('hidden', 'tags')
 
-    @staticmethod
-    def link(post):
-        return f'<a href="{post.get_absolute_url()}">page</a>'
-    link.allow_tags = True
-
 
 @admin.register(models.Tag)
-class Tag(admin.ModelAdmin):
+class Tag(admin.ModelAdmin, AdminModelUrlMixin):
 
     inlines = (PostsInline, )
+    list_display = ('name', 'link')

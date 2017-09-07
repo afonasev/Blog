@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
-from .tools import markdown_to_html
+from backend.utils import markdown_to_html
 
 
 class Post(models.Model):

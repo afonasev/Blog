@@ -16,3 +16,9 @@ class PostDetail(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(models.Post, id=self.kwargs['pk'])
+
+
+class PostByTagList(PostList):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(tags__name=self.kwargs['name'])
