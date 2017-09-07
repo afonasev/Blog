@@ -21,12 +21,21 @@ class PostModelTest(TestCase):
         assert visible_post in posts
         assert hidden_post not in posts
 
+    def test_get_absolute_url(self):
+        post = factories.PostFactory(slug='test')
+        formated_date = post.created_at.strftime('%Y/%m/%d')
+        assert post.get_absolute_url() == '/%s/test/' % formated_date
+
 
 class TagModelTest(TestCase):
 
     def test_string_representation(self):
         tag = factories.TagFactory()
-        self.assertEqual(str(tag), tag.name)
+        self.assertEqual(str(tag), tag.title)
+
+    def test_get_absolute_url(self):
+        tag = factories.TagFactory(slug='test')
+        assert tag.get_absolute_url() == '/tag/test/'
 
 
 class PostListViewTest(TestCase):
@@ -52,17 +61,25 @@ class PostDetailViewTest(TestCase):
         response = self.client.get(post.get_absolute_url())
         assert post.title in response.content.decode()
 
+    def test_tag(self):
+        post = factories.PostFactory()
+        tag = factories.TagFactory()
+        post.tags.add(tag)
+        response = self.client.get(post.get_absolute_url())
+        assert tag.title in response.content.decode()
+
     def test_404(self):
-        response = self.client.get(
-            reverse('posts:post-detail', kwargs={'pk': 1}),
-        )
+        url = reverse('posts:post-detail', kwargs={
+            'year': '2017', 'month': '01', 'day': '01', 'slug': 'slug',
+        })
+        response = self.client.get(url)
         assert response.status_code == 404
 
 
 class PostByTagListViewTest(TestCase):
 
     def test_list(self):
-        tag = factories.TagFactory(name='test')
+        tag = factories.TagFactory(title='test')
         post_without_tag = factories.PostFactory()
         post_with_tag = factories.PostFactory()
         post_with_tag.tags.add(tag)

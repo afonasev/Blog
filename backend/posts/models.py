@@ -1,11 +1,26 @@
 from django.conf import settings
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 
 from backend.utils import markdown_to_html
 
 
-class Post(models.Model):
+class ModelWithSlug(models.Model):
+
+    title = NotImplemented  # text field
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
+class Post(ModelWithSlug):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=500, unique=True)
@@ -20,7 +35,12 @@ class Post(models.Model):
         return markdown_to_html(self.text)
 
     def get_absolute_url(self):
-        return reverse('posts:post-detail', kwargs={'pk': self.id})
+        return reverse('posts:post-detail', kwargs={
+            'year': self.created_at.year,
+            'month': '%02i' % self.created_at.month,
+            'day': '%02i' % self.created_at.day,
+            'slug': self.slug,
+        })
 
     def __str__(self):
         return self.title
@@ -33,15 +53,15 @@ class Post(models.Model):
         ordering = ['created_at']
 
 
-class Tag(models.Model):
+class Tag(ModelWithSlug):
 
-    name = models.CharField(max_length=100, unique=True)
+    title = models.CharField(max_length=100, unique=True)
 
     def get_absolute_url(self):
-        return reverse('posts:post-by-tag-list', kwargs={'name': self.name})
+        return reverse('posts:post-by-tag-list', kwargs={'slug': self.slug})
 
     def __str__(self):
-        return self.name
+        return self.title
 
     class Meta:
-        ordering = ['name']
+        ordering = ['title']

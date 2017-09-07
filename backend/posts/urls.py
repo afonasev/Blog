@@ -8,13 +8,14 @@ urlpatterns = [
     url(r'^$', PostList.as_view(), name='post-list'),
 
     url(
-        r'^post/(?P<pk>[0-9]+)/$',
+        r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/'
+        r'(?P<slug>[-\w]*)/$',
         PostDetail.as_view(),
         name='post-detail',
     ),
 
     url(
-        r'^tag/(?P<name>[\w\s-]+)/$',
+        r'^tag/(?P<slug>[\w\s-]+)/$',
         PostByTagList.as_view(),
         name='post-by-tag-list',
     ),

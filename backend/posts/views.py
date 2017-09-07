@@ -15,10 +15,10 @@ class PostDetail(DetailView):
     template_name = 'posts/post-detail.html'
 
     def get_object(self, queryset=None):
-        return get_object_or_404(models.Post, id=self.kwargs['pk'])
+        return get_object_or_404(models.Post, slug=self.kwargs['slug'])
 
 
 class PostByTagList(PostList):
 
     def get_queryset(self):
-        return super().get_queryset().filter(tags__name=self.kwargs['name'])
+        return super().get_queryset().filter(tags__slug=self.kwargs['slug'])
