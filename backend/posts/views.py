@@ -8,6 +8,7 @@ class PostList(ListView):
 
     template_name = 'posts/post-list.html'
     queryset = models.Post.unhidden().order_by('-created_at')
+    paginate_by = 10
 
 
 class PostDetail(DetailView):
