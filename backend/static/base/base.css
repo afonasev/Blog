@@ -58,3 +58,18 @@ article pre code {
     font-size: 16px;
     text-decoration: underline;
 }
+
+.pagination {
+    text-align: center;
+    font-size: 18px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.pagination_previous {
+    float: left;
+}
+
+.pagination_next {
+    float: right;
+}
