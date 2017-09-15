@@ -1,18 +1,29 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-    {% for post in post_list %}
-        {% include "./post.html" with post=post only %}
-    {% endfor %}
 
-    {% if is_paginated %}
-        <article class="pagination">
-            {% if page_obj.has_next %}
-                <a class="pagination_previous" href="?page={{ page_obj.next_page_number }}">previous</a>
-            {% endif %}
-            {% if page_obj.has_previous %}
-                <a class="pagination_next" href="?page={{ page_obj.previous_page_number }}">next</a>
-            {% endif %}
-        </article>
+{% for post in post_list %}
+    <article>
+        {% include "./post.html" with post=post only %}
+
+    {% if post.comments.count %}
+        <div class="comments-counter">
+            <a href="{{ post.get_absolute_url }}#comments">{{ post.comments.count }} comments</a>
+        </div>
     {% endif %}
+    </article>
+{% endfor %}
+
+{% if is_paginated %}
+    <article class="pagination">
+    {% if page_obj.has_next %}
+        <a class="pagination-previous" href="?page={{ page_obj.next_page_number }}">previous</a>
+    {% endif %}
+
+    {% if page_obj.has_previous %}
+        <a class="pagination-next" href="?page={{ page_obj.previous_page_number }}">next</a>
+    {% endif %}
+    </article>
+{% endif %}
+
 {% endblock content %}

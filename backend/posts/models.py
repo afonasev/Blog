@@ -20,7 +20,14 @@ class ModelWithSlug(models.Model):
         abstract = True
 
 
-class Post(ModelWithSlug):
+class TextToHTMLMixin():
+
+    @property
+    def html(self):
+        return markdown_to_html(self.text)
+
+
+class Post(ModelWithSlug, TextToHTMLMixin):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=500, unique=True)
@@ -29,10 +36,6 @@ class Post(ModelWithSlug):
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     tags = models.ManyToManyField('Tag', related_name='posts')
     hidden = models.BooleanField(default=True)
-
-    @property
-    def html(self):
-        return markdown_to_html(self.text)
 
     def get_absolute_url(self):
         return reverse('posts:post-detail', kwargs={
@@ -65,3 +68,15 @@ class Tag(ModelWithSlug):
 
     class Meta:
         ordering = ['title']
+
+
+class Comment(models.Model, TextToHTMLMixin):
+
+    post = models.ForeignKey(Post, related_name='comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    username = models.CharField(max_length=100, blank=True, null=True)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+
+    class Meta:
+        ordering = ['created_at']

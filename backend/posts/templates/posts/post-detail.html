@@ -1,5 +1,39 @@
 {% extends "base/base.html" %}
 
 {% block content %}
+<article>
     {% include "./post.html" with post=post only %}
+</article>
+
+<article>
+{% if post.comments.count %}
+    <div id="comments" class="comments">
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <span class="comment-author-name">
+            {% if comment.username %}
+                {{ comment.username }}
+            {% else %}
+                {{ comment.author.username }}
+            {% endif %}
+                <time class="date">{{ comment.created_at | date }}</time>
+            </span>
+
+            {{ comment.html | safe }}
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+    {% if not user.is_authenticated %}
+        <p><input type="text" name="username" placeholder="your name" required/></p>
+    {% endif %}
+
+        <p><textarea name="text" placeholder="your comment" required></textarea></p>
+        <p><input type="submit" value="Create comment"/></p>
+    </form>
+</article>
 {% endblock %}
