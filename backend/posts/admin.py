@@ -11,6 +11,12 @@ class TagsInline(admin.TabularInline):
     model = models.Post.tags.through
 
 
+class CommentsInline(admin.TabularInline):
+
+    extra = 0
+    model = models.Comment
+
+
 class PostsInline(admin.TabularInline):
 
     readonly_fields = ('post', )
@@ -28,7 +34,7 @@ class Post(admin.ModelAdmin, AdminModelUrlMixin):
 
     date_hierarchy = 'created_at'
     exclude = ('tags', )
-    inlines = (TagsInline, )
+    inlines = (TagsInline, CommentsInline)
     list_display = (
         'title', 'author', 'created_at', 'updated_at', 'hidden', 'link',
     )
@@ -41,3 +47,9 @@ class Tag(admin.ModelAdmin, AdminModelUrlMixin):
 
     inlines = (PostsInline, )
     list_display = ('title', 'link')
+
+
+@admin.register(models.Comment)
+class Comment(admin.ModelAdmin):
+
+    list_display = ('post', 'author', 'username', 'text', 'created_at')

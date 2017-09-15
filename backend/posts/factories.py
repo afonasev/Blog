@@ -30,3 +30,13 @@ class PostFactory(factory.django.DjangoModelFactory):
     text = factory.Faker('text')
     tags = factory.RelatedFactory(TagFactory)
     hidden = False
+
+
+class CommentFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = 'posts.Comment'
+
+    post = factory.SubFactory(PostFactory)
+    author = factory.SubFactory(AuthorFactory)
+    username = factory.Faker('user_name')
+    text = factory.Faker('text')

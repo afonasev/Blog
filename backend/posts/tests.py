@@ -41,7 +41,7 @@ class TagModelTest(TestCase):
 class PostListViewTest(TestCase):
 
     def test_list(self):
-        posts = factories.PostFactory.create_batch(3)
+        posts = [factories.PostFactory() for _ in range(3)]
         response = self.client.get('/')
         for post in posts:
             assert post.title in response.content.decode()
@@ -54,7 +54,7 @@ class PostListViewTest(TestCase):
         assert hidden_post.title not in response.content.decode()
 
 
-class PostDetailViewTest(TestCase):
+class PostDetailViewTest(TestCase):  # pylint:disable=too-many-public-methods
 
     def test_detail(self):
         post = factories.PostFactory()
@@ -74,6 +74,39 @@ class PostDetailViewTest(TestCase):
         })
         response = self.client.get(url)
         assert response.status_code == 404
+
+    def test_comments(self):
+        post = factories.PostFactory()
+        comments = [factories.CommentFactory(post=post) for _ in range(5)]
+        response = self.client.get(post.get_absolute_url())
+        for comment in comments:
+            assert comment.html in response.content.decode()
+
+    def test_add_comments_from_anonym(self):
+        post = factories.PostFactory()
+
+        self.client.post(
+            post.get_absolute_url(),
+            {'username': 'anonym', 'text': 'comment_text'},
+        )
+
+        comment = post.comments.first()
+        assert comment.username == 'anonym'
+        assert comment.text == 'comment_text'
+        assert not comment.author
+
+    def test_add_comments_from_user(self):
+        post = factories.PostFactory()
+
+        self.client.force_login(post.author)
+        self.client.post(
+            post.get_absolute_url(), {'text': 'comment_text'},
+        )
+
+        comment = post.comments.first()
+        assert comment.author == post.author
+        assert comment.text == 'comment_text'
+        assert not comment.username
 
 
 class PostByTagListViewTest(TestCase):
