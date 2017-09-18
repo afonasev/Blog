@@ -92,4 +92,4 @@ ENV/
 db.sqlite3
 
 # static
-static/
+/static/

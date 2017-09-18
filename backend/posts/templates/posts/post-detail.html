@@ -16,8 +16,9 @@
             {% else %}
                 {{ comment.author.username }}
             {% endif %}
-                <time class="date">{{ comment.created_at | date }}</time>
             </span>
+
+            <time class="date">{{ comment.created_at | date }}</time>
 
             {{ comment.html | safe }}
         </div>
@@ -32,8 +33,12 @@
         <p><input type="text" name="username" placeholder="your name" required/></p>
     {% endif %}
 
-        <p><textarea name="text" placeholder="your comment" required></textarea></p>
+        <p><textarea class="comment-text-input" name="text" placeholder="your comment" required></textarea></p>
         <p><input type="submit" value="Create comment"/></p>
     </form>
 </article>
+
+{% load static %}
+<script type="text/javascript" src="{% static "posts/comments.js" %}"></script>
+
 {% endblock %}
