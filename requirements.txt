@@ -3,7 +3,7 @@ certifi==2017.7.27.1
 chardet==3.0.4
 coverage==4.4.1
 coveralls==1.2.0
-Django==1.11.4
+Django==1.11.28
 django-debug-toolbar==1.8
 django-split-settings==0.2.5
 dnspython==1.15.0
